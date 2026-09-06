@@ -5,31 +5,30 @@ kind: Deployment
 metadata:
   name: nextjs-app
 
-  spec:
-    replicas:2
+spec:
+  replicas: 2
 
-    selector:
-      matchlabels:
+  selector:
+    matchLabels:
       app: nextjs-app
 
-    template:
-      metadata:
-        labels:
-          app: nextjs-app
-        
-      spec:
-        containers:
-          - name: nextjs
-            image: IMAGE_PLACEHOLDER
+  template:
+    metadata:
+      labels:
+        app: nextjs-app
 
-            ports:
-              - containerPort:3000
+    spec:
+      containers:
+        - name: nextjs
+          image: IMAGE_PLACEHOLDER
 
-            resources:
-              requests:
-                cpu: "250m"
-                memory: "256Mi"
+          ports:
+            - containerPort: 3000
 
-              limits:
-                cpu: "500m"
-                memory: "512Mi"
+          resources:
+            requests:
+              cpu: "250m"
+              memory: "256Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
