@@ -1,0 +1,77 @@
+# This is a basic workflow to help you get started with Actions
+
+name: NestJS CI pipeline
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build-and-push:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+  permissions:
+    contents: 'read'
+    id-token: 'write'
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - id: auth
+        name: Authentication to Google Cloud
+        uses: google-github-actions/auth@v2
+
+        with:
+          token_format: access_token
+
+          workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+          service_account: mygithubcicd@${{secrets.GCP_PROJECT_ID}}.iam.gserviceaccount.com
+
+      - name: Docker auth
+        run: |
+          echo '${{steps.auth.outputs.access_token}}' | docker login -u oauth2accesstoken --password-stdin https://us-centeral1-docker.pkg.dev
+
+      - name: Build and push Container
+        run: |
+          docker build -t us-centeral1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID}}/nextjs-repo/app:${{ github.sha}} .
+
+          docker push us-centeral1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID}}/nextjs-repo/app:${{ github.sha}}
+
+
+
+
+
+
+
+
+
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+          
+   
