@@ -5,11 +5,11 @@ kind: Deployment
 metadata:
   name: nextjs-app
 
-  specs:
+  spec:
     replicas:2
 
     selector:
-      matchlabel:
+      matchlabels:
       app: nextjs-app
 
     template:
@@ -33,4 +33,3 @@ metadata:
               limits:
                 cpu: "500m"
                 memory: "512Mi"
-                
