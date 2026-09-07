@@ -50,7 +50,7 @@ jobs:
       - name: Push Container
         run: |
           docker push \
-            us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/nextjs-repo/app:${{ github.sha }}
+            us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/nextjs-repo/app:latest
 
       # CD pipeline
       - name: Get GKE Credentials
