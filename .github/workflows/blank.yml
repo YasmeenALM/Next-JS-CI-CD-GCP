@@ -44,7 +44,7 @@ jobs:
       - name: Build Container
         run: |
           docker build \
-            -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/nextjs-repo/app:${{ github.sha }} .
+            -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/nextjs-repo/app:latest .
 
       # 5. Push Docker image to Artifact Registry
       - name: Push Container
